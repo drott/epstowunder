@@ -37,7 +37,7 @@ MS_TO_MPH = 2.237
 class WUUpdate:
     def __init__(self):
         self.epsDict = None
-        self.wu_config = { 'station_id' : 'IESPOO11', 'password' : 'goD6io2k' }
+        self.wu_config = { 'station_id' : 'IESPOO11', 'password' : '<removed>' }
 
     def updateFromEpsDict(self,epsDict):
         self.epsDict = epsDict
