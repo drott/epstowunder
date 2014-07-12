@@ -30,6 +30,8 @@ import re
 import requests
 from datetime import datetime
 import sys
+from time import strptime, localtime
+from pytz import *
 
 UPDATE_REPORT_URL='http://eps.poista.net/lastWeather1m'
 MS_TO_MPH = 2.237
@@ -41,7 +43,12 @@ class WUUpdate:
 
     def updateFromEpsDict(self,epsDict):
         self.epsDict = epsDict
-        timeFormat = datetime.utcnow().strftime("%Y-%m-%d ") + self.epsDict['time'] + ":00"
+        tzFi = timezone("Europe/Helsinki")
+        timeFormat = datetime.now(tzFi).strftime("%Y-%m-%d ") + self.epsDict['time'] + ":00"
+        timeFi = datetime.strptime(timeFormat, "%Y-%m-%d %H:%M:%S")
+        timeFi = tzFi.localize(timeFi)
+        timeUtc = timeFi.astimezone(utc);
+        timeFormat = timeUtc.strftime("%Y-%m-%d %H:%M:%S")
         self.requestDict = dict(self.epsDict.items() + self.wu_config.items() + [("timeFormat", timeFormat)])
 
     def cToF(self, celsius):
