@@ -74,7 +74,7 @@ class EPSFetcher:
         self.last_eps_update = r.text.split('\n', 1)[0].encode('utf-8')
 
     def get_update_dict(self):
-        named_groups = '(?P<time>\d{1,2}:\d{1,2})\s+Dir:\s+(?P<direction>\d+)\s*Low:\s*(?P<lowFrom>\d+.\d+)\s+-\s+(?P<lowTo>\d+.\d+)\s*Avg:\s+(?P<avg>\d+.\d+)\s*High:\s*(?P<highFrom>\d+.\d+)\s+-\s+(?P<highTo>\d+.\d+)\s*\s(?P<temp>\d+.\d+)°C'
+        named_groups = '\s+(?P<time>\d{1,2}:\d{1,2})\s+Dir:\s+(?P<direction>\d+)\s*Low:\s*(?P<lowFrom>\d+.\d+)\s+-\s+(?P<lowTo>\d+.\d+)\s*Avg:\s+(?P<avg>\d+.\d+)\s*High:\s*(?P<highFrom>\d+.\d+)\s+-\s+(?P<highTo>\d+.\d+)\s*\s(?P<temp>\d+.\d+)°C'
         weather_matcher = re.compile(named_groups)
         self._update()
         matched = weather_matcher.match(self.last_eps_update)
